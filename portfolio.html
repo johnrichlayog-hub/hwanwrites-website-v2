@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gallery | HwanWrites</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================================
+           HWANWRITES — UNIFIED PORTFOLIO THEME
+           Transparent backgrounds for portfolio
+        ========================================= */
+
+        .portfolio-page {
+            min-height: 100vh;
+            padding: 110px 7% 80px;
+            color: #F4F4EF;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+
+        .portfolio-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Back link */
+        .portfolio-back {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #8FBA95;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .portfolio-back:hover {
+            color: #C5DFC9;
+        }
+
+        /* Seamless heading */
+        .portfolio-page .portfolio-heading,
+        .portfolio-page header.portfolio-heading {
+            position: relative;
+            text-align: center;
+            margin: 0 0 36px;
+            padding: 0 0 24px;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            outline: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .portfolio-page .portfolio-heading::before {
+            content: none !important;
+            display: none !important;
+        }
+
+        .portfolio-page .portfolio-heading .section-label,
+        .portfolio-page .portfolio-heading h1,
+        .portfolio-page .portfolio-heading p {
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            outline: none !important;
+        }
+
+        .portfolio-heading .section-label {
+            color: #8FBA95;
+            letter-spacing: 2px;
+            font-size: 11px;
+            margin: 0 0 10px;
+        }
+
+        .portfolio-heading h1 {
+            margin: 8px 0 10px;
+            font-size: clamp(30px, 5vw, 46px);
+            color: #F4F4EF;
+            line-height: 1.2;
+        }
+
+        .portfolio-heading p:last-child {
+            max-width: 620px;
+            margin: 0 auto;
+            color: #B8BEB7;
+            line-height: 1.8;
+        }
+
+        /* Subtle divider */
+        .portfolio-page .portfolio-heading::after {
+            content: "";
+            display: block;
+            width: min(100%, 940px);
+            height: 1px;
+            margin: 26px auto 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(111, 159, 120, 0.32),
+                transparent
+            );
+            box-shadow: none !important;
+        }
+
+        /* Gallery layout */
+        .portfolio-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        /* Two-column layout for selected categories */
+        .portfolio-gallery.two-column {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Portfolio cards: transparent background */
+        .portfolio-page .portfolio-item {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid rgba(111, 159, 120, 0.42);
+            border-radius: 9px;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            transition:
+                border-color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .portfolio-item.has-image {
+            cursor: pointer;
+        }
+
+        .portfolio-page .portfolio-item:hover {
+            border-color: rgba(159, 196, 164, 0.85);
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            box-shadow: 0 0 18px rgba(111, 159, 120, 0.07);
+            transform: translateY(-3px);
+        }
+
+        .portfolio-item.has-image:focus-visible {
+            outline: 2px solid #A1C7A6;
+            outline-offset: 3px;
+        }
+
+        /* Image preview frame: transparent background */
+        .portfolio-page .portfolio-preview {
+            width: 100%;
+            aspect-ratio: 297 / 210;
+            box-sizing: border-box;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border-bottom: 1px solid rgba(111, 159, 120, 0.32);
+        }
+
+        .portfolio-preview img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            -webkit-user-drag: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .portfolio-preview .preview-label {
+            color: #8FBA95;
+            font-size: clamp(20px, 2.5vw, 34px);
+            font-weight: 700;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
+        /* Card information */
+        .portfolio-item-info {
+            padding: 18px;
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+        }
+
+        .project-number {
+            display: block;
+            margin-bottom: 8px;
+            color: #8FBA95;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+        }
+
+        .portfolio-item-info h2 {
+            font-size: 17px;
+            line-height: 1.5;
+            margin: 0 0 8px;
+            color: #F4F4EF;
+            overflow-wrap: anywhere;
+        }
+
+        .portfolio-item-info p {
+            color: #B8BEB7;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .portfolio-note {
+            margin-top: 32px;
+            text-align: center;
+            color: #A6ADA5;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* Image lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 20px 20px;
+            box-sizing: border-box;
+            background: rgba(5, 8, 5, 0.96);
+        }
+
+        .lightbox.is-open {
+            display: flex;
+        }
+
+        .lightbox img {
+            display: block;
+            max-width: 100%;
+            max-height: calc(100vh - 100px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transform: none !important;
+            transition: none !important;
+            animation: none !important;
+            -webkit-user-drag: none;
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: none;
+            border: 1px solid #6F9F78;
+            border-radius: 4px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            right: 22px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #6F9F78;
+            border-radius: 50%;
+            background: #202820;
+            color: #F4F4EF;
+            font-size: 30px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .lightbox-close:hover {
+            background: #2D3B2E;
+        }
+
+        .lightbox-title {
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            right: 80px;
+            color: #F4F4EF;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .portfolio-page {
+                padding: 90px 5% 60px;
+            }
+
+            .portfolio-gallery,
+            .portfolio-gallery.two-column {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 560px) {
+            .portfolio-page {
+                padding: 75px 5% 50px;
+            }
+
+            .portfolio-heading {
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+
+            .portfolio-gallery,
+            .portfolio-gallery.two-column {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .portfolio-item-info {
+                padding: 16px;
+            }
+
+            .portfolio-item-info h2 {
+                font-size: 18px;
+            }
+
+            .lightbox {
+                padding: 65px 10px 15px;
+            }
+
+            .lightbox img {
+                max-height: calc(100vh - 95px);
+            }
+        }
+
+        /* Reduced motion accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .portfolio-item,
+            .portfolio-back {
+                transition: none;
+            }
+
+            .portfolio-item:hover {
+                transform: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="visual-refresh.css">
+</head>
+
+<body>
+    <main class="portfolio-page">
+        <div class="portfolio-inner">
+            <a class="portfolio-back" href="index.html#portfolio">
+                ← Back to Project Showcase
+            </a>
+
+            <header class="portfolio-heading">
+                <p class="section-label">HWANWRITES PORTFOLIO</p>
+                <h1 id="category-title">Project Gallery</h1>
+                <p id="category-description">
+                    Explore selected HwanWrites projects.
+                </p>
+            </header>
+
+            <section
+                class="portfolio-gallery"
+                id="portfolio-gallery"
+                aria-label="Project previews">
+            </section>
+
+            <p class="portfolio-note">
+                Selected work, presented with client confidentiality in mind.
+            </p>
+        </div>
+    </main>
+
+    <!-- In-page lightbox -->
+    <div
+        class="lightbox"
+        id="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Project image viewer"
+        aria-hidden="true">
+
+        <span class="lightbox-title" id="lightbox-title"></span>
+
+        <button
+            class="lightbox-close"
+            id="lightbox-close"
+            type="button"
+            aria-label="Close image viewer">
+            &times;
+        </button>
+
+        <img id="lightbox-image" src="" alt="" draggable="false">
+    </div>
+
+    <script>
+        const categories = {
+            research: {
+                title: "Research Projects",
+                description: "A selection of research projects and materials prepared by HwanWrites.",
+                items: [
+                    {
+                        title: "Research Paper",
+                        image: "1ResearchPaper.jpg",
+                        description: "Research paper preparation and formatting."
+                    },
+                    {
+                        title: "Research Proposal",
+                        image: "2ResearchProposal.jpg",
+                        description: "Research proposal development and organization."
+                    },
+                    {
+                        title: "Research Questionnaire",
+                        image: "3ResearchQuestionnaire.jpg",
+                        description: "Research questionnaire construction and formatting."
+                    },
+                    {
+                        title: "Data Encoding",
+                        image: "4DataEncoding.jpg",
+                        description: "Research data encoding and organization."
+                    },
+                    {
+                        title: "Content Major Revisions",
+                        image: "5ContentMajorRevisions.jpg",
+                        description: "Major content revisions to a research paper."
+                    },
+                    {
+                        title: "Manual Revision on AI-Flagged Research Paper",
+                        image: "6ManualRevisionOnAiFlagResearchPaper.jpg",
+                        description: "Manual revision and refinement of research content."
+                    }
+                ]
+            },
+
+            academic: {
+                title: "Academic Projects",
+                description: "Selected academic outputs prepared by HwanWrites.",
+                items: [
+                    {
+                        title: "Academic Reporting",
+                        image: "1AcademicReporting.jpg",
+                        description: "Structured academic reporting materials."
+                    },
+                    {
+                        title: "Case Study",
+                        image: "2CaseStudy.jpg",
+                        description: "An organized case study academic output."
+                    },
+                    {
+                        title: "Business Plan",
+                        image: "3BusinessPlan.jpg",
+                        description: "A structured business plan for an academic requirement."
+                    },
+                    {
+                        title: "OJT Journal",
+                        image: "4OJTJournal.jpg",
+                        description: "On-the-job training journal documentation."
+                    },
+                    {
+                        title: "Accomplishment Report",
+                        image: "5AccomplishmentReport.jpg",
+                        description: "Documentation of activities and accomplishments."
+                    },
+                    {
+                        title: "Event Plan",
+                        image: "6EventPlan.jpg",
+                        description: "Event planning materials and documentation."
+                    }
+                ]
+            },
+
+            professional: {
+                title: "Professional Documents",
+                description: "Explore featured professional writing and document services.",
+                items: [
+                    {
+                        title: "Formal Letters",
+                        image: "1FormalLetters.jpg",
+                        description: "Formal letters prepared for professional communication."
+                    },
+                    {
+                        title: "Resume and CV",
+                        image: "2ResumeandCv.jpg",
+                        description: "Resume and curriculum vitae preparation and formatting."
+                    },
+                    {
+                        title: "Contract of Agreement (Drafting)",
+                        image: "3ContractOfAgreement(drafting).jpg",
+                        description: "Drafting and organizing agreement documents."
+                    },
+                    {
+                        title: "Certificate Content",
+                        image: "4CertificateContent.jpg",
+                        description: "Certificate wording and content preparation."
+                    }
+                ]
+            },
+
+            design: {
+                title: "Graphic Designs",
+                description: "Explore selected graphic design and promotional materials.",
+                items: [
+                    {
+                        title: "Pubmat",
+                        image: "1Pubmat.jpg",
+                        description: "Publication materials designed for promotional use."
+                    },
+                    {
+                        title: "Campaign Poster",
+                        image: "2CampaignPoster.jpg",
+                        description: "Campaign poster design and layout."
+                    },
+                    {
+                        title: "Infographics",
+                        image: "3Infographics.jpg",
+                        description: "Visual presentation of information and data."
+                    },
+                    {
+                        title: "Logo",
+                        image: "4Logo.jpg",
+                        description: "Logo design and visual identity concepts."
+                    }
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const categoryKey = params.get("category") || "research";
+        const category = categories[categoryKey] || categories.research;
+
+        document.title = category.title + " | HwanWrites";
+
+        document.getElementById("category-title").textContent =
+            category.title;
+
+        document.getElementById("category-description").textContent =
+            category.description;
+
+        const gallery = document.getElementById("portfolio-gallery");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightbox-image");
+        const lightboxTitle = document.getElementById("lightbox-title");
+        const lightboxClose = document.getElementById("lightbox-close");
+
+        /*
+         * Only Professional Documents and Graphic Designs use two columns
+         * on desktop. Research and Academic Projects keep three columns.
+         */
+        if (categoryKey === "professional" || categoryKey === "design") {
+            gallery.classList.add("two-column");
+        }
+
+        let previousFocus = null;
+
+        function openLightbox(imagePath, title) {
+            previousFocus = document.activeElement;
+
+            lightboxImage.src = imagePath;
+            lightboxImage.alt = title;
+            lightboxTitle.textContent = title;
+
+            lightbox.classList.add("is-open");
+            lightbox.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+            lightboxClose.focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("is-open");
+            lightbox.setAttribute("aria-hidden", "true");
+            lightboxImage.removeAttribute("src");
+            lightboxImage.alt = "";
+            document.body.style.overflow = "";
+
+            if (previousFocus) {
+                previousFocus.focus();
+            }
+        }
+
+        lightboxClose.addEventListener("click", closeLightbox);
+
+        lightbox.addEventListener("click", function (event) {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (
+                event.key === "Escape" &&
+                lightbox.classList.contains("is-open")
+            ) {
+                closeLightbox();
+            }
+        });
+
+        category.items.forEach((item, index) => {
+            const card = document.createElement("article");
+            card.className = "portfolio-item";
+
+            const preview = document.createElement("div");
+            preview.className = "portfolio-preview";
+
+            if (item.image) {
+                const imagePath = "images/" + item.image;
+                const image = document.createElement("img");
+
+                image.src = imagePath;
+                image.alt = item.title + " project preview";
+                image.loading = "lazy";
+                image.draggable = false;
+
+                image.onerror = function () {
+                    card.classList.remove("has-image");
+                    card.removeAttribute("tabindex");
+                    card.removeAttribute("role");
+                    card.style.cursor = "default";
+
+                    const label = document.createElement("span");
+                    label.className = "preview-label";
+                    label.textContent = "Image not found";
+
+                    preview.replaceChildren(label);
+                };
+
+                preview.appendChild(image);
+
+                card.classList.add("has-image");
+                card.setAttribute("tabindex", "0");
+                card.setAttribute("role", "button");
+                card.setAttribute("aria-label", "View image: " + item.title);
+
+                card.addEventListener("click", function () {
+                    if (!card.classList.contains("has-image")) return;
+                    openLightbox(imagePath, item.title);
+                });
+
+                card.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+
+                        if (card.classList.contains("has-image")) {
+                            openLightbox(imagePath, item.title);
+                        }
+                    }
+                });
+            } else {
+                const label = document.createElement("span");
+                label.className = "preview-label";
+                label.textContent =
+                    "HW. / " + String(index + 1).padStart(2, "0");
+
+                preview.appendChild(label);
+            }
+
+            const info = document.createElement("div");
+            info.className = "portfolio-item-info";
+
+            const number = document.createElement("span");
+            number.className = "project-number";
+            number.textContent =
+                "PROJECT " + String(index + 1).padStart(2, "0");
+
+            const heading = document.createElement("h2");
+            heading.textContent = item.title;
+
+            const description = document.createElement("p");
+            description.textContent = item.description;
+
+            info.append(number, heading, description);
+            card.append(preview, info);
+            gallery.appendChild(card);
+        });
+
+    </script>
+</body>
+</html>
